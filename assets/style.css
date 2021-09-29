@@ -1,5 +1,8 @@
-.gantt-container {
-  width: 100%;
+
+.background-image {
+  height: 100%;
+  background-position: center;
+  background-image: url('https://www.bretagne-conseil.fr/wp-content/uploads/revslider/splash-creative-light-02-animated/Splash-Creative-Dark-Slider-Background.jpg');
 }
 
 .popup-html {
@@ -8,4 +11,43 @@
   padding: 10px;
   width: 200px;
   overflow: hidden;
+}
+
+.container-gantt {
+  width: 70%;
+  margin: 10px;
+  padding: 10px;
+  min-width: 600px;
+}
+
+.tasks-container {
+  width: 40%;
+  min-width: 300px;
+  width: 500px;
+  margin: 10px;
+  max-height: 700px;
+  overflow: auto;
+  height: 100%;
+  padding: 10px;
+  background-color : #272727 !important;
+}
+
+.task-card {
+  background-color: white !important;
+  color: rgb(51, 51, 51) !important;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+input {
+  color: black !important;
+  border-color: black !important;
+}
+
+.v-text-field__details {
+  display: none;
+}
+ 
+.popup-wrapper {
+  pointer-events: none;
 }

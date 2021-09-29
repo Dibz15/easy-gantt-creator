@@ -1,9 +1,9 @@
 <template>
   <v-app dark>
     <v-main>
-      <v-container>
+      <div class="background-image">
         <Nuxt />
-      </v-container>
+      </div>
     </v-main>
     <v-footer :absolute="!fixed" app>
       <span>Adrien Chaix &copy; {{ new Date().getFullYear() }}</span>
@@ -23,11 +23,6 @@ export default {
           icon: "mdi-apps",
           title: "Welcome",
           to: "/",
-        },
-        {
-          icon: "mdi-chart-bubble",
-          title: "Inspire",
-          to: "/inspire",
         },
       ],
       miniVariant: false,

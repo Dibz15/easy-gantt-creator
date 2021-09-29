@@ -47,7 +47,6 @@ export default Vue.extend({
 
   methods: {
     onClick() {
-      console.log("click!");
       this.newName = this.task.name;
       this.edit = true;
     },

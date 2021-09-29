@@ -45,7 +45,6 @@ export default Vue.extend({
 
   methods: {
     onCreate() {
-      console.log("value", this.dependencies);
       this.$emit("onNewTask", {
         name: this.name,
         start: moment().format("YYYY-MM-DD"),

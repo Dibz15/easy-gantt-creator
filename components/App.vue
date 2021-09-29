@@ -90,14 +90,12 @@ export default Vue.extend({
       task.progress = event.progress;
     },
     updateTask(oldTask: Task, newTask: Task) {
-      console.log("update", oldTask, newTask);
       oldTask.name = newTask.name;
       oldTask.start = newTask.start;
       oldTask.end = newTask.end;
       if (this.$refs.gantt) (this.$refs.gantt as any).updateTasks();
     },
     changeViewMode(mode: string) {
-      console.log("change view mode", mode);
       this.mode = mode;
     },
     addTask(task: Task) {

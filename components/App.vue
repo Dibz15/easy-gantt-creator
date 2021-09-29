@@ -43,7 +43,7 @@
         :task="task"
         @onTaskChange="(newT) => updateTask(task, newT)"
       />
-      <NewTask @onNewTask="(newT) => addTask(newT)" :tasks="tasks" />
+      <NewTask @onNewTask="addTask" :tasks="tasks" />
     </v-card>
   </div>
 </template>

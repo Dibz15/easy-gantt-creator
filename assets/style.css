@@ -1,0 +1,11 @@
+.gantt-container {
+  width: 100%;
+}
+
+.popup-html {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  overflow: hidden;
+}

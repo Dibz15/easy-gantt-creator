@@ -8,7 +8,7 @@ export default {
   target: 'static',
 
   router: {
-    base: '/edtake-technical-test/'
+    base: '/easy-gantt-creator/'
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head

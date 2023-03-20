@@ -5,9 +5,6 @@
         <Nuxt />
       </div>
     </v-main>
-    <v-footer :absolute="!fixed" app>
-      <span>Adrien Chaix &copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
   </v-app>
 </template>
 

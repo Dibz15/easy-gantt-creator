@@ -9,8 +9,21 @@
         :value="newName"
         @input="onInput"
       />
+      <v-select
+        :value="dependencies"
+        :items="tasks"
+        item-text="name"
+        item-value="id"
+        label="Depends on"
+        multiple
+        outlined
+        @input="onDependenciesChange"
+      ></v-select>
       <v-btn icon color="green" @click.stop="onEndEdit">
         <v-icon>mdi-checkbox-marked-circle-outline</v-icon>
+      </v-btn>
+      <v-btn icon color="red" @click.stop="onDelete">
+        <v-icon>mdi-delete</v-icon>
       </v-btn>
     </div>
     <h2 v-else>{{ task.name }}</h2>
@@ -32,9 +45,13 @@ export default Vue.extend({
       type: Task,
       required: true,
     },
+    tasks: {
+      required: true,
+      default: [],
+    },
   },
   data() {
-    return { edit: false, newName: this.task.name };
+    return { edit: false, newName: this.task.name, dependencies: "" };
   },
   computed: {
     start() {
@@ -51,12 +68,17 @@ export default Vue.extend({
       this.edit = true;
     },
     onEndEdit() {
-      this.$emit("onTaskChange", { ...this.task, name: this.newName });
+      this.$emit("onTaskChange", { ...this.task, name: this.newName, dependencies: this.dependencies });
       this.edit = false;
     },
-
+    onDelete() {
+      this.$emit("onDelete");
+    },
     onInput(newName) {
       this.newName = newName;
+    },
+    onDependenciesChange(dependencies) {
+      this.dependencies = dependencies;
     },
   },
 });

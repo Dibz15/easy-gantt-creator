@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
@@ -11,14 +11,19 @@
   "dependencies": {
     "@types/frappe-gantt": "^0.4.2",
     "core-js": "^3.15.1",
+    "cross-env": "^7.0.3",
+    "file-saver": "^2.0.5",
     "frappe-gantt": "^0.5.0",
     "moment": "^2.29.1",
     "nuxt": "^2.15.7",
+    "vue": "^2.7.14",
+    "vue-server-renderer": "^2.7.14",
     "vuetify": "^2.5.5"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.7",
     "@nuxt/typescript-build": "^2.1.0",
-    "@nuxtjs/vuetify": "^1.12.1"
+    "@nuxtjs/vuetify": "^1.12.1",
+    "@types/file-saver": "^2.0.5"
   }
 }

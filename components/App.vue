@@ -6,25 +6,25 @@
           @click="changeViewMode"
           handle="Year"
           :viewMode="mode"
-          title="Année"
+          title="Year"
         />
         <ViewModeButton
           @click="changeViewMode"
           handle="Month"
           :viewMode="mode"
-          title="Mois"
+          title="Month"
         />
         <ViewModeButton
           @click="changeViewMode"
           handle="Week"
           :viewMode="mode"
-          title="Semaine"
+          title="Week"
         />
         <ViewModeButton
           @click="changeViewMode"
           handle="Day"
           :viewMode="mode"
-          title="Journée"
+          title="Day"
         />
       </div>
       <Gantt
@@ -35,15 +35,39 @@
         @task-progress-updated="updateTaskProgress($event)"
       />
     </v-card>
-    <v-card class="tasks-container" elevation="2">
-      <h1 style="color: white">Mes Taches</h1>
-      <Task
-        v-for="task in tasks"
-        :key="task.id"
-        :task="task"
-        @onTaskChange="(newT) => updateTask(task, newT)"
-      />
+    <v-card elevation="2">
       <NewTask @onNewTask="addTask" :tasks="tasks" />
+      <v-card class="tasks-container" elevation="2">
+        <h1 style="color: white">Your tasks</h1>
+        <v-card-text>
+          <label>
+            <v-btn
+              @click="saveTasks"
+            >
+              Save Tasks...
+            </v-btn>
+          </label>
+          <label>
+            <v-btn
+              @click="loadTasks"
+            >
+              Load Tasks...
+            </v-btn>
+            <input @change="onLoadFileChange" type="file" ref="loadfile" accept=".json" hidden/>
+          </label>
+        </v-card-text>
+        <div>&nbsp;</div>
+        <div>
+          <Task
+            v-for="task in tasks"
+            :key="task.id"
+            :task="task"
+            :tasks="tasks"
+            @onTaskChange="(newT) => updateTask(task, newT)"
+            @onDelete="deleteTask(task)"
+          />
+        </div>
+      </v-card>
     </v-card>
   </div>
 </template>
@@ -51,32 +75,24 @@
 <script lang="ts">
 import "../assets/style.css";
 import Vue from "vue";
-import { Task } from "frappe-gantt";
 import moment from "moment";
+import { saveAs } from 'file-saver';
 
 export default Vue.extend({
   data() {
-    const tasks: Task[] = [
-      {
-        id: "0",
-        name: "Hello",
-        start: moment().add(-3, "d").format("YYYY-MM-DD"),
-        end: moment().add(-2, "d").format("YYYY-MM-DD"),
-        progress: 10,
-        dependencies: "",
-      },
-      {
-        id: "1",
-        name: "World",
-        start: moment().format("YYYY-MM-DD"),
-        end: moment().add(2, "d").format("YYYY-MM-DD"),
-        progress: 20,
-        dependencies: "0",
-      },
-    ];
+    const defaultTask = {
+      name: "Default task",
+      start: moment().format("YYYY-MM-DD"),
+      end: moment().add(7, "d").format("YYYY-MM-DD"),
+      progress: 10,
+      dependencies: "",
+    }
+    const tasks = [ defaultTask ];
     return {
       mode: "Day",
       tasks,
+      defaultTask,
+      fileData: ""
     };
   },
   methods: {
@@ -89,18 +105,59 @@ export default Vue.extend({
       const { task } = event;
       task.progress = event.progress;
     },
-    updateTask(oldTask: Task, newTask: Task) {
+    updateTask(oldTask: any, newTask: any) {
       oldTask.name = newTask.name;
       oldTask.start = newTask.start;
       oldTask.end = newTask.end;
+      oldTask.dependencies = newTask.dependencies;
       if (this.$refs.gantt) (this.$refs.gantt as any).updateTasks();
+    },
+    deleteTask(task : any) {
+      const index = this.tasks.indexOf(task)
+      if (index > -1) { // only splice array when item is found
+        this.tasks.splice(index, 1); // 2nd parameter means remove one item only
+      }
+      if (this.tasks.length === 0) this.addTask(this.defaultTask);
     },
     changeViewMode(mode: string) {
       this.mode = mode;
     },
-    addTask(task: Task) {
+    addTask(task: any) {
+      // if (task.dependencies) {
+      //   console.log(this.tasks)
+      //   const dependencies = this.tasks.filter(x => task.dependencies.includes(x._id))
+      //   console.log(dependencies)
+      // }
       this.tasks.push(task);
     },
+    saveTasks(event : any) {
+      let blob = new Blob([JSON.stringify(this.tasks, null, 2)], {type : 'application/json'});
+
+      // Save blob as a file named "data.json"
+      saveAs(blob, `gantt-save${moment().format("YYYY-MM-DD_hh-mm-ss")}.json`);
+    },
+    loadTasks() {
+      const loadInput = (this.$refs.loadfile as any);
+      loadInput.click();
+    },
+    onLoadFileChange(event : any) {
+      const file = event.target.files ? event.target.files[0] : null;
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          /* Parse data */
+          // console.log(e.target);
+          if (e.target) {
+            const bstr = e.target.result; 
+            // Assuming data is text...
+            this.tasks = JSON.parse(bstr as string)
+            if (this.tasks.length === 0) this.addTask(this.defaultTask);
+          }
+        }
+        reader.readAsBinaryString(file);
+      }
+    }
   },
 });
 </script>

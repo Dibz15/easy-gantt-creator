@@ -1,6 +1,6 @@
 <template>
   <div>
-    <svg ref="gantt" />
+    <svg ref="gantt"></svg>
   </div>
 </template>
 
@@ -55,15 +55,15 @@ export default Vue.extend({
 		  <h1>${task.name}</h1>
       ${
         days >= 0
-          ? `<p>Fin dans ${days} jour${days > 1 ? "s" : ""}</p>`
-          : `<p>Fin il y à ${Math.abs(days)} jour${days < -1 ? "s" : ""}</p>`
+          ? `<p>Ends in ${days} day${days > 1 ? "s" : ""}</p>`
+          : `<p>Ended ${Math.abs(days)} day${days < -1 ? "s" : ""} ago</p>`
       }
 
-		  <p>${task.progress}% complété!</p>
+		  <p>${task.progress}% complete</p>
 		</div>
 	  `;
         },
-        language: "fr",
+        language: "en",
         view_mode: this.viewMode,
       });
       this.updateTasks();

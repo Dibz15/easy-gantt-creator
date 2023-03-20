@@ -1,9 +1,9 @@
 <template>
   <v-card elevation="2" class="task-card">
-    <h3>Ajouter une tache</h3>
+    <h3>Add a task</h3>
     <div class="d-flex flex-row align-center">
       <v-text-field
-        label="Nom"
+        label="Name"
         outlined
         color="primary"
         style="color: black"
@@ -19,7 +19,7 @@
       :items="tasks"
       item-text="name"
       item-value="id"
-      label="Dépend de"
+      label="Depends on"
       multiple
       outlined
       @input="onDependenciesChange"
@@ -48,7 +48,7 @@ export default Vue.extend({
       this.$emit("onNewTask", {
         name: this.name,
         start: moment().format("YYYY-MM-DD"),
-        end: moment().format("YYYY-MM-DD"),
+        end: moment().add(7, "d").format("YYYY-MM-DD"),
         progress: 10,
         dependencies: this.dependencies,
       });

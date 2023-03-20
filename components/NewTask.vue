@@ -49,7 +49,7 @@ export default Vue.extend({
         name: this.name,
         start: moment().format("YYYY-MM-DD"),
         end: moment().add(7, "d").format("YYYY-MM-DD"),
-        progress: 10,
+        progress: 100,
         dependencies: this.dependencies,
       });
       this.name = "";

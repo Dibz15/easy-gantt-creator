@@ -2,7 +2,7 @@
 .background-image {
   height: 100%;
   background-position: center;
-  background-image: url('https://www.bretagne-conseil.fr/wp-content/uploads/revslider/splash-creative-light-02-animated/Splash-Creative-Dark-Slider-Background.jpg');
+  /* background-image: url('https://www.bretagne-conseil.fr/wp-content/uploads/revslider/splash-creative-light-02-animated/Splash-Creative-Dark-Slider-Background.jpg'); */
 }
 
 .popup-html {
@@ -48,4 +48,13 @@ input {
  
 .popup-wrapper {
   pointer-events: none;
+}
+
+.gantt .bar-label {
+  fill: rgb(0, 0, 0) !important;
+  font-weight: 500 !important;
+}
+
+.gantt .bar-progress {
+  fill: rgb(33, 183, 217) !important;
 }

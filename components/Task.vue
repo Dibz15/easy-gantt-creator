@@ -2,7 +2,7 @@
   <v-card elevation="2" class="task-card" @click="onClick">
     <div v-if="edit" class="d-flex flex-row align-center">
       <v-text-field
-        label="Nom"
+        label="Name"
         outlined
         color="primary"
         style="color: black"
@@ -30,19 +30,36 @@
     <div class="d-flex flex-row justify-space-between">
       <h5>{{ start }} ➜ {{ end }}</h5>
       <h5>{{ task.progress }}%</h5>
+
+      <!-- <v-btn @click="dialog = true" :color="color" rounded icon><v-icon>mdi-palette</v-icon></v-btn>
+      <v-dialog v-model="dialog" max-width="500px">
+        <v-card>
+          <v-card-title>Select a color</v-card-title>
+          <v-card-text>
+            <v-color-picker
+              v-model="color"
+              hide-canvas
+              hide-inputs
+              show-swatches
+            ></v-color-picker>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn @click="dialog = false">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog> -->
     </div>
   </v-card>
 </template>
 
 <script>
 import Vue from "vue";
-import { Task } from "frappe-gantt";
+// import { Task } from "frappe-gantt";
 import moment from "moment";
 
 export default Vue.extend({
   props: {
     task: {
-      type: Task,
       required: true,
     },
     tasks: {
@@ -51,7 +68,7 @@ export default Vue.extend({
     },
   },
   data() {
-    return { edit: false, newName: this.task.name, dependencies: "" };
+    return { edit: false, newName: this.task.name, dependencies: "", color: "", dialog: false };
   },
   computed: {
     start() {
@@ -68,7 +85,12 @@ export default Vue.extend({
       this.edit = true;
     },
     onEndEdit() {
-      this.$emit("onTaskChange", { ...this.task, name: this.newName, dependencies: this.dependencies });
+      this.$emit("onTaskChange", { 
+        ...this.task, 
+        name: this.newName, 
+        dependencies: this.dependencies,
+        custom_class: this.color ? this.newName : ''
+      });
       this.edit = false;
     },
     onDelete() {
@@ -81,5 +103,11 @@ export default Vue.extend({
       this.dependencies = dependencies;
     },
   },
+  watch: {
+    color() {
+      console.log(this.color)
+      this.onEndEdit()
+    }
+  }
 });
 </script>

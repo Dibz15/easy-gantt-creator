@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-row flex-wrap justify-space-around">
-    <v-card class="container-gantt">
+    <v-card class="container-gantt ">
       <div>
         <ViewModeButton
           @click="changeViewMode"
@@ -84,7 +84,7 @@ export default Vue.extend({
       name: "Default task",
       start: moment().format("YYYY-MM-DD"),
       end: moment().add(7, "d").format("YYYY-MM-DD"),
-      progress: 10,
+      progress: 100,
       dependencies: "",
     }
     const tasks = [ defaultTask ];

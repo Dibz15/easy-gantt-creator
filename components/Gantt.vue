@@ -43,7 +43,7 @@ export default Vue.extend({
       this.gantt = new Gantt(this.$refs.gantt, this.tasks, {
         on_date_change: (task, start, end) => {
           this.$emit("task-date-updated", { task, start, end });
-          this.updateTasks();
+          // this.updateTasks();
         },
         on_progress_change: (task, progress) => {
           this.$emit("task-progress-updated", { task, progress });

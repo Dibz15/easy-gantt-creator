@@ -36,7 +36,7 @@
       />
       <v-btn style="align: right;" icon @click="ganttLarge = !ganttLarge"><v-icon>mdi-fullscreen</v-icon></v-btn>
     </v-card>
-    <v-card elevation="2" style="min-width: 500px; width: 40%;">
+    <v-card elevation="2" style="min-width: 500px; width: 40%; max-height: 900px;">
       <NewTask @onNewTask="addTask" :tasks="tasks" />
       <v-card class="tasks-container" elevation="2">
         <h1 style="color: white">Your tasks</h1>

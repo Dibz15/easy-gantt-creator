@@ -45,10 +45,15 @@ export default Vue.extend({
 
   methods: {
     onCreate() {
+
+      const moments = Array.from(this.tasks, ({ start }) => moment(start));
+      console.log(moments)
+      const earliestMoment = moment(moment.min(moments));
+      console.log(earliestMoment)
       this.$emit("onNewTask", {
         name: this.name,
-        start: moment().format("YYYY-MM-DD"),
-        end: moment().add(7, "d").format("YYYY-MM-DD"),
+        start: earliestMoment.format("YYYY-MM-DD"),
+        end: earliestMoment.add(7, "d").format("YYYY-MM-DD"),
         progress: 100,
         dependencies: this.dependencies,
       });

@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-row flex-wrap justify-space-around">
-    <v-card class="container-gantt ">
+    <v-card class="container-gantt" :style="{'min-width': '500px', width: fullWidth}">
       <div>
         <ViewModeButton
           @click="changeViewMode"
@@ -34,8 +34,9 @@
         @task-date-updated="updateTaskDate($event)"
         @task-progress-updated="updateTaskProgress($event)"
       />
+      <v-btn style="align: right;" icon @click="ganttLarge = !ganttLarge"><v-icon>mdi-fullscreen</v-icon></v-btn>
     </v-card>
-    <v-card elevation="2">
+    <v-card elevation="2" style="min-width: 500px; width: 40%;">
       <NewTask @onNewTask="addTask" :tasks="tasks" />
       <v-card class="tasks-container" elevation="2">
         <h1 style="color: white">Your tasks</h1>
@@ -92,8 +93,14 @@ export default Vue.extend({
       mode: "Day",
       tasks,
       defaultTask,
-      fileData: ""
+      fileData: "",
+      ganttLarge: false,
     };
+  },
+  computed: {
+    fullWidth() {
+      return ((this as any).ganttLarge) ? "95%" : "50%"
+    }
   },
   methods: {
     updateTaskDate(event: any) {

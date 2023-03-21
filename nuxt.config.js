@@ -13,8 +13,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - edtake',
-    title: 'edtake',
+    titleTemplate: '%s - using frappe gantt',
+    title: 'gantt creator',
     htmlAttrs: {
       lang: 'en'
     },

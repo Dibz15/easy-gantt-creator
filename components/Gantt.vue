@@ -48,23 +48,25 @@ export default Vue.extend({
         on_progress_change: (task, progress) => {
           this.$emit("task-progress-updated", { task, progress });
         },
-        custom_popup_html: function (task) {
-          const days = moment(task._end).diff(moment(), "days");
-          return `
-		<div class="popup-html">
-		  <h1>${task.name}</h1>
-      ${
-        days >= 0
-          ? `<p>Ends in ${days} day${days > 1 ? "s" : ""}</p>`
-          : `<p>Ended ${Math.abs(days)} day${days < -1 ? "s" : ""} ago</p>`
-      }
+    //     custom_popup_html: function (task) {
+    //       const days = moment(task._end).diff(moment(), "days");
+    //       return `
+		// <div class="popup-html">
+		//   <h1>${task.name}</h1>
+    //   ${
+    //     days >= 0
+    //       ? `<p>Ends in ${days} day${days > 1 ? "s" : ""}</p>`
+    //       : `<p>Ended ${Math.abs(days)} day${days < -1 ? "s" : ""} ago</p>`
+    //   }
 
-		  <p>${task.progress}% complete</p>
-		</div>
-	  `;
-        },
+		//   <p>${task.progress}% complete</p>
+		// </div>
+	  // `;
+    //     },
         language: "en",
         view_mode: this.viewMode,
+        bar_height: 25,
+        arrow_curve: 10,
       });
       this.updateTasks();
       this.updateViewMode();
@@ -74,7 +76,7 @@ export default Vue.extend({
     },
     updateTasks() {
       this.gantt.refresh(this.tasks);
-    },
+    }
   },
 });
 </script>

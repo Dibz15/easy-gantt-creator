@@ -68,7 +68,7 @@ export default Vue.extend({
     },
   },
   data() {
-    return { edit: false, newName: this.task.name, dependencies: "", color: "", dialog: false };
+    return { edit: false, newName: this.task.name, dependencies: this.task.dependencies, color: "", dialog: false };
   },
   computed: {
     start() {
